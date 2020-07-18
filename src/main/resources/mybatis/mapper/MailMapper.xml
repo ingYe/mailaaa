@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.mapper.MailMapper">
+
+    <select id="queryMailList" resultType="Mail">
+        select * from mail
+    </select>
+
+    <select id="getMailById" resultType="Mail">
+        select * from mail where id = #{id}
+    </select>
+
+    <insert id="addMail" parameterType="Mail" useGeneratedKeys="true" keyColumn="id">
+        insert into mail (mailid, addr, mailsubject, fromtime, content, attach) value (#{mailid}, #{addr}, #{mailsubject}, #{fromtime}, #{content}, #{attach})
+    </insert>
+
+    <delete id="deleteMail" parameterType="int">
+        delete from mail where id = #{id}
+    </delete>
+
+    <update id="truncateTable">
+        truncate table mail
+    </update>
+
+    <select id="getMailIdById" resultType="string">
+        select mailid from mail where id = #{id}
+    </select>
+</mapper>

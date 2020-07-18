@@ -1,29 +1,31 @@
 package com.example.mail.controller;
 
+import com.example.mail.pojo.User;
+import com.example.mail.service.Check;
+import com.example.mail.service.CheckService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/user")
 public class LoginController {
 
-    @GetMapping("/")
-    public String index() {
-        return "login.html";
+    @Autowired
+    CheckService checkService;
+
+    @PostMapping(value = "/login")
+    public String login(String username, String password) {
+//        User user = new User(username, password);
+
+        User user = checkService.login(username, password);
+
+        if (user != null ) {
+            System.out.println(username + " has logined successfully");
+            return "redirect:/logged/send";
+        } else {
+            return "redirect:/index";
+        }
     }
-
-
-    @RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
-    public void check(HttpServletRequest request, HttpSession session) {
-
-        String addr = request.getParameter("email");
-        String pass = request.getParameter("password");
-
-        System.out.println(addr + "  " + pass);
-    }
-
 }

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyemleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .top {
+            background: #b9c9fe;
+            border: 3px solid #000020;
+            border-radius: 5px;
+            height: 120px;
+        }
+        .image {
+            height: 100px;
+            width: 200px;
+            float: left;
+            margin-top: 5px;
+        }
+        .left {
+            float: left;
+            margin-left: 20px;
+            margin-top: 20px;
+            /* border: 2px solid black;  */
+        }
+        .myfont {
+            font-family: "Times New Roman","华文行楷", SansSerif;
+            font-size: 20px;
+            height: 25px;
+        }
+        /* .datetime {
+            float: right;
+            color: #8ccc1e;
+            text-decoration: none;
+            margin: 15px;
+            border: 2px solid #15b6ae;
+            border-radius: 5px;
+        } */
+        .myin {
+            width: 180px;
+            height: 30px;
+            border: 3px solid #7fcc0b;
+            border-right: none;
+            border-radius: 4px;
+            margin-top: 70px;
+            margin-left: 850px;
+        }
+        button {
+            position: relative;
+            right: 2px;
+            width: 50px;
+            height: 38px;
+            font-size: 14px;
+            color: white;
+            background: #7fcc0b;
+            border: 0px;
+            border-radius: 4px;
+            margin-top: 70px;
+
+        }
+        .func {
+            margin-top: 15px;
+            width: 665px;
+            height: 550px;
+            border: 3px solid black;
+            border-radius: 4px;
+            float: left;
+        }
+
+        .table {
+            font-family: "Times New Roman", SansSerif;
+            font-size: 18px;
+            margin-left: 30px;
+            margin-top: 20px;
+            width: 600px;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        .table_hear {
+            font-size: 17px;
+            font-weight: normal;
+            padding: 8px;
+            background: #b9c9fe;
+            border-top: 4px solid #aabcfe;
+            border-bottom: 1px solid #fff;
+            color: #039;
+        }
+
+        .row {
+            padding: 8px;
+            background: #e8edff;
+            border-bottom: 1px solid #fff;
+            color: #669;
+            border-top: 1px solid transparent;
+        }
+
+        .row:hover {
+            background: #d0dafd;
+            color: #339;
+        }
+
+        .flush {
+            right: 2px;
+            width: 50px;
+            height: 35px;
+            font-size: 14px;
+            color: white;
+            background: #7fcc0b;
+            border: 0px;
+            border-radius: 4px;
+
+            margin-left: 550px;
+            margin-top: 25px;
+        }
+        .send {
+            background: #b9c9fe;
+            float: left;
+            margin-top: 15px;
+            margin-left: 25px;
+            height: 550px;
+            width: 800px;
+            border: 3px solid black;
+            border-radius: 4px;
+        }
+        
+        #distaddr, #topic {
+            margin: 10px;
+            width: 600px;
+            height: 35px;
+            color: #a6a6a6;
+            /*设置边框圆角*/
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+        .sendfont {
+            font-family: 楷体_GB2312;
+            padding: 10px;
+            text-align: right;
+        }
+        .senddfont {
+            padding: 10px;
+            text-align: right;
+            vertical-align: top;
+        }
+        #main {
+            margin: 10px;
+            color: #a6a6a6;
+            /*设置边框圆角*/
+            border-radius: 5px;
+            border: 2px solid #a6a6a6;
+        }
+        .sendbutt {
+            right: 2px;
+            width: 50px;
+            height: 35px;
+            font-size: 14px;
+            color: white;
+            background: #7fcc0b;
+            border: 0px;
+            border-radius: 4px;
+        }
+        .select {
+            border: 0px;
+            border-radius: 4px;
+            margin-left: 35px;
+            background: #01aaed;
+            color: #ffffff;
+        }
+        .select:hover {
+            opacity: 0.9;
+        }
+        .flag {
+            right: 2px;
+            height: 35px;
+            font-size: 14px;
+            color: white;
+            background: #7fcc0b;
+            border: 0px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top">
+        <img src="/images/lo.jpg" class="image">
+
+        <div class = "left">
+            <label class="myfont">当前账户</label> <br/>
+            <label class="myfont" >csuycd@qq.com</label>
+        </div>
+
+        <div class="sear">
+            <input type="text" name="search" id="search" placeholder="搜索邮件" class="myin">
+            <button>搜索</button>
+        </div>
+    </div>
+
+    <div class="func">
+
+        <table class="table">
+            <thead>
+            <tr class="table_hear">
+                <th scope="col">
+                    id
+                </th>
+                <th scope="col">
+                    主题
+                </th>
+                <th scope="col">
+                    发信地址
+                </th>
+                <th scope="col">
+                    发送时间
+                </th>
+                <th scope="col">
+                    查看
+                </th>
+                <th scope="col">
+                    删除
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr class="row" th:each="m:${mails}">
+                <td>
+                    <span th:text="${m.id}"></span>
+                </td>
+                <td>
+                    <span th:text="${m.mailsubject}"></span>
+                </td>
+                <td>
+                    <span th:text="${m.addr}"></span>
+                </td>
+                <td>
+                    <span th:text="${m.fromtime}"></span>
+                </td>
+                <td>
+                    <a th:href="@{/logged/show(id=${m.id})}" target="_blank">view</a>
+                </td>
+                <td>
+                    <a th:href="@{/logged/del(id=${m.id})}">del</a>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+
+<!--        <input th:action="@{/logged/ha}" target="_blank" type="submit" value="刷新" id="flush" name="to" class="flush">-->
+
+            <button onclick="location.href='/logged/flush'" name="flush" id="flush" value="flush" class="flush">刷新</button>
+    </div>
+
+    <div class="send">
+        <form th:action="@{/logged/send}" method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td><label for="distaddr" class = "sendfont">收件人</label></td>
+                    <td><input id="distaddr" name="distaddr" type="email" placeholder="请输入收件人地址"></td>
+                </tr>
+                <tr>
+                    <td><label for="topic" class = "sendfont">主题</label></td>
+                    <td><input id="topic" name="topic" type="text" placeholder="请输入主题"></td>
+                </tr>
+                <tr>
+                    <td><label class="senddfont">正文</label></td>
+                    <td><textarea cols="75" rows="23" id="main" name="context"></textarea></td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="flag" class="flag" name="flag">
+                            <option value="false">无附件</option>
+                            <option value="true">添加附件</option>
+                        </select>
+                    </td>
+                    <td><input type="file" name="file" id="file" value="选择文件" class="select"></td>
+                    <td><input type="submit" value="发送" id="to" name="to" class="sendbutt" onclick="location.href='/logged/send'"></td>
+<!--                    location.href='/logged/send'-->
+                </tr>
+
+            </table>
+
+        </form>
+    </div>
+
+</body>
+</html>

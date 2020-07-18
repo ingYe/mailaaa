@@ -7,3 +7,29 @@ spring:
     suffix: .html
     mode: LEGACYHTML5
     cache: false
+
+  mail:
+    port: 587
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: csuycd@qq.com
+    password: nwwfmsbdrvsecjif
+    properties:
+      mail:
+        smtp:
+          auth: true
+          startttls:
+            enable: true
+            required: true
+
+
+  datasource:
+    username: root
+    password: cnmdsql
+    url: jdbc:mysql:///mail?useUnicode=true&characterEncoding=UTF-8&characterSetResults=utf8&serverTimezone=CST&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+
+#整合mybatis
+mybatis:
+  type-aliases-package: com.example.mail.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml

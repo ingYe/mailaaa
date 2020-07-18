@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thyemleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>邮件内容</title>
+</head>
+<body>
+    <table th:each="m:${mails}">
+            <tr>
+                <span th:text="${m.addr}"></span>
+            </tr>
+            <tr>
+                <span th:text="${m.mailsubject}"></span>
+            </tr>
+            <tr>
+                <span th:text="${m.fromtime}"></span>
+            </tr>
+            <tr>
+                <span th:text="${m.content}"></span>
+            </tr>
+    </table>
+</body>
+</html>
