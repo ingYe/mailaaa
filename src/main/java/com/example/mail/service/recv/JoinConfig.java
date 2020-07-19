@@ -72,7 +72,7 @@ public class JoinConfig implements PopMail{
                         attach = 1;
                     }
 
-                    Mail mail = new Mail(null, rec.getMessageId(), rec.getFrom(), rec.getSubject(), rec.getSendDate(), str, attach);
+                    Mail mail = new Mail(null, rec.getMessageId(), rec.getFrom(), rec.getSubject(), rec.getSendDate(), str, attach, null, null);
 //                    Mail mail = new Mail(id,"cssycd@gmail.com", "tp", "2020-07-17 00:57", "tpp", 1);
                     System.out.println(mail);
 

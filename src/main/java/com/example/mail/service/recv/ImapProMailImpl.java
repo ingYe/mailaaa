@@ -5,7 +5,6 @@ import com.example.mail.pojo.Mail;
 import com.sun.mail.imap.IMAPMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ import javax.mail.internet.MimeUtility;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
 
 @Slf4j
 @Service
@@ -35,6 +33,8 @@ public class ImapProMailImpl implements ImapProMail{
         System.out.println("flush table");
         mailMapper.truncateTable();
     }
+
+    private String path = System.getProperty("user.dir") + "\\output\\";
 
     /**
      * The PostConstruct annotation is used on a method that needs to be executed
@@ -74,8 +74,8 @@ public class ImapProMailImpl implements ImapProMail{
                 log.info("messageId:{}", msg.getMessageID());
 
                 mail.setMailid(msg.getMessageID());
-                String filename = System.getProperty("user.dir") + "\\output\\" + subject;
-                flag = saveParts(msg.getContent(), filename, mail);
+
+                flag = saveParts(msg.getContent(), subject, mail);
                 log.info("flag:{}", flag);
                 if (flag) {
                     mail.setAttach(1);
@@ -206,9 +206,12 @@ public class ImapProMailImpl implements ImapProMail{
                             else {
                                 //  Try to get the name of the attachment
                                 extension = part.getDataHandler().getName();
-                                filename = filename + "." + extension;
-                                System.out.println("... " + filename);
-                                out = new FileOutputStream(new File(filename));
+                                filename = filename + "_" + extension;
+                                mail.setFilename(filename);
+                                mail.setUrl(path + filename);
+                                System.out.println("... " + path + filename);
+
+                                out = new FileOutputStream(new File( path + filename));
                                 in = part.getInputStream();
                                 int k;
                                 while ((k = in.read()) != -1) {

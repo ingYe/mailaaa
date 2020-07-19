@@ -4,11 +4,18 @@ import com.example.mail.mapper.MailMapper;
 import com.example.mail.pojo.Mail;
 import com.example.mail.service.recv.ImapProMail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLConnection;
 import java.util.List;
 
 @Controller
@@ -32,7 +39,7 @@ public class LoggedController {
 
     Mail mail = null;
     @GetMapping("/del")
-    public String delete(int id) {
+    public String delete(Integer id) {
         imapProMail.deleteMail(id);
 
         mail = mailMapper.getMailById(id);
@@ -49,10 +56,10 @@ public class LoggedController {
      * @return
      */
     @GetMapping("/show")
-    public String show(int id, Model model) {
+    public String show(Integer id, Model model) {
 
         mail = mailMapper.getMailById(id);
-        model.addAttribute("mails", mail);
+        model.addAttribute("infos", mail);
 
         return "show";
     }
@@ -68,5 +75,38 @@ public class LoggedController {
 //        }
 
         return  "redirect:/logged/send";
+    }
+
+    @ResponseBody
+    @GetMapping("/download")
+    public void downloadFile(Integer id, HttpServletResponse response) {
+
+        String url = mailMapper.getUrlById(id);
+
+        File file = new File(url);
+
+        if (file.exists()) {
+
+            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+            if (mimeType == null) {
+                mimeType = "application/octet-stream";
+            }
+
+            response.setContentType(mimeType);
+
+            response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() + "\""));
+
+            response.setContentLength((int) file.length());
+
+            try {
+                InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+                FileCopyUtils.copy(inputStream, response.getOutputStream());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

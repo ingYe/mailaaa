@@ -15,6 +15,7 @@ public class Mail {
     private String mailsubject;
     private String fromtime;
     private String content;
-    private int attach;
-
+    private Integer attach;
+    private String filename;
+    private String url;
 }

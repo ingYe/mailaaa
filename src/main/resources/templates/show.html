@@ -1,23 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thyemleaf.org">
+<html xmlns:th="http://www.thyemleaf.org">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>邮件内容</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        * {box-sizing: border-box;}
+
+        .word {
+            height: 40px;
+        }
+
+        .tips {
+            font-family: "Times New Roman", SansSerif;
+            font-size: 20px;
+        }
+
+        .show {
+            margin: 50px;
+            padding: 15px;
+            border:2px solid #A6A6A6;
+            border-radius: 4px;
+            width: 900px;
+            height: 56px;
+        }
+
+        .content {
+            margin: 50px;
+            padding: 15px;
+            border:2px solid #A6A6A6;
+            border-radius: 4px;
+            width: 900px;
+            height: 170px;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        table {
+            margin-left: 250px;
+        }
+
+        .att {
+            font-family: "Times New Roman", SansSerif;
+            font-size: 17px;
+            height: 40px;
+        }
+    </style>
 </head>
 <body>
-    <table th:each="m:${mails}">
-            <tr>
-                <span th:text="${m.addr}"></span>
-            </tr>
-            <tr>
-                <span th:text="${m.mailsubject}"></span>
-            </tr>
-            <tr>
-                <span th:text="${m.fromtime}"></span>
-            </tr>
-            <tr>
-                <span th:text="${m.content}"></span>
-            </tr>
+
+<h2>Mail Content</h2>
+
+<div class="container">
+    <table th:each="info:${infos}">
+        <!-- 主题 -->
+        <tr class="word">
+            <td><label class="tips">Subject</label></td>
+        </tr>
+        <tr>
+            <td class="show">
+                <span th:text="${info.mailsubject}"></span>
+            </td>
+        </tr>
+        <!-- 发件人 -->
+        <tr class="word">
+            <td><label class="tips">Sender</label></td>
+        </tr>
+        <tr>
+            <td class="show">
+                <span th:text="${info.addr}"></span>
+            </td>
+        </tr>
+        <tr class="word">
+            <td><label class="tips">SendTime</label></td>
+        </tr>
+        <tr>
+            <td class="show">
+                <span th:text="${info.fromtime}"></span>
+            </td>
+        </tr>
+        <tr class="word">
+            <td><label class="tips">Content</label></td>
+        </tr>
+        <tr>
+            <td class="content">
+                <span th:text="${info.content}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="att">attach</label>
+                </textarea>
+                <a th:href="@{/logged/download(id=${info.id})}" target="_blank" placeholder="null">
+                    <span id="file" th:text="${info.filename}" ></span>
+                </a>
+
+            </td>
+        </tr>
     </table>
+
+</div>
+
+
 </body>
 </html>

@@ -18,28 +18,6 @@
 		<java.version>1.8</java.version>
 	</properties>
 
-	<repositories>
-		<!--        <repository>-->
-		<!--            <id>sonatype-nexus-staging</id>-->
-		<!--            <name>Sonatype Nexus Staging</name>-->
-		<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-		<!--            <releases>-->
-		<!--                <enabled>true</enabled>-->
-		<!--            </releases>-->
-		<!--            <snapshots>-->
-		<!--                <enabled>true</enabled>-->
-		<!--            </snapshots>-->
-		<!--        </repository>-->
-		<repository>
-			<id>alimaven</id>
-			<name>aliyun maven</name>
-			<url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -109,6 +87,17 @@
 			<version>1.1.10</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+
+		<!-- security架包 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

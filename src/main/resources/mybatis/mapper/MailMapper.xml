@@ -13,7 +13,7 @@
     </select>
 
     <insert id="addMail" parameterType="Mail" useGeneratedKeys="true" keyColumn="id">
-        insert into mail (mailid, addr, mailsubject, fromtime, content, attach) value (#{mailid}, #{addr}, #{mailsubject}, #{fromtime}, #{content}, #{attach})
+        insert into mail (mailid, addr, mailsubject, fromtime, content, attach, filename, url) value (#{mailid}, #{addr}, #{mailsubject}, #{fromtime}, #{content}, #{attach}, #{filename}, #{url})
     </insert>
 
     <delete id="deleteMail" parameterType="int">
@@ -26,5 +26,9 @@
 
     <select id="getMailIdById" resultType="string">
         select mailid from mail where id = #{id}
+    </select>
+
+    <select id="getUrlById" resultType="string">
+        select url from mail where id = #{id}
     </select>
 </mapper>

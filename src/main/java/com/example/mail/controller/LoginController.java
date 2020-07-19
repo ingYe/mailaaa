@@ -1,7 +1,6 @@
 package com.example.mail.controller;
 
 import com.example.mail.pojo.User;
-import com.example.mail.service.Check;
 import com.example.mail.service.CheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

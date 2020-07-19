@@ -12,14 +12,16 @@ public interface MailMapper {
 
     List<Mail> queryMailList();
 
-    Mail getMailById(int id);
+    Mail getMailById(Integer id);
 
     int addMail(Mail mail);
 
-    int deleteMail(int id);
+    int deleteMail(Integer id);
 
     int truncateTable();
 
-    String getMailIdById(int id);
+    String getMailIdById(Integer id);
+
+    String getUrlById(Integer id);
 
 }
