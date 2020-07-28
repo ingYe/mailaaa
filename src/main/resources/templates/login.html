@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thyemleaf.org">
 <head>
     <meta charset="UTF-8">
+
     <style>
         * {
             margin: 0px;
@@ -105,6 +106,14 @@
 </head>
 
 <body>
+    <script>
+        var message = [[${msg}]];
+        // var message = "100";
+
+        if (message == "500") {
+            alert("验证码错误");
+        }
+    </script>
     
     <div class="rg_layout">
 
@@ -132,7 +141,7 @@
                         <tr>
                             <td class="td_left"><label>验证码</label></td>
                             <td class="td_right">
-                                <input type="text" id="codei" placeholder="验证码" required="required" class="code">
+                                <input type="text" id="codei" placeholder="验证码" name="code" required="required" class="code">
 <!--                                <img class="codeimg"  id="code" th:src="@{/logged/code}">-->
                                 <a href="javascript:;" onclick="document.getElementById('code').src = '/login/code?' + (new Date()).getTime()">
                                     <img class="codeimg"  id="code" th:src="@{/login/code}">
@@ -140,9 +149,11 @@
                             </td>
 
                         </tr>
+
                         <tr>
                             <td colspan="2" class="login"><input type="submit" id="butt" onclick="us()" value="登录 &raquo;" class="myfont"></td>
                         </tr>
+                        <p style="color: red" th:text="${msg}" th:if{not #strings.isEmpty(msg)}></p>
                     </table>
 
                 </form>

@@ -17,6 +17,8 @@ import java.io.IOException;
 @RequestMapping("/login")
 public class CodeController {
 
+    protected static String code;
+
     @Autowired
     VerifyCodeService verifyCodeService;
 
@@ -26,7 +28,7 @@ public class CodeController {
         try {
             //设置长宽
             VerifyCode verifyCode = verifyCodeService.generate(70, 35);
-            String code = verifyCode.getCode();
+            code = verifyCode.getCode();
 
             log.info(code);
             request.getParameter("codei");
